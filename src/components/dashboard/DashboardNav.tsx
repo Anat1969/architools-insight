@@ -1,10 +1,17 @@
 import { useState } from "react";
-import { FileText, HardHat, Car, Droplets, TreePine, Zap, Trash2, Waves, Leaf, Menu, X, Building2 } from "lucide-react";
+import { FileText, HardHat, Car, Droplets, TreePine, Zap, Trash2, Waves, Leaf, Menu, X, Building2, BookUser, Calculator } from "lucide-react";
 import { chapters } from "@/data/permitData";
 
 const iconMap: Record<string, any> = {
   FileText, HardHat, Car, Droplets, TreePine, Zap, Trash2, Waves, Leaf,
 };
+
+const tools = [
+  { id: "phone-book", label: "ספר טלפונים", icon: BookUser },
+  { id: "parking-calc", label: "מחשבון חניה", icon: Calculator },
+  { id: "fee-calc", label: "מחשבון אגרות", icon: Calculator },
+  { id: "waste-calc", label: "מחשבון אשפה", icon: Calculator },
+];
 
 interface DashboardNavProps {
   activeSection: string;
