@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Car, Accessibility, Zap, Info, Plus, Trash2 } from "lucide-react";
+import { Car, Accessibility, Zap, Info, Plus, Trash2, Truck } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -15,6 +15,7 @@ interface ParkingConfig {
   inputLabel: string;
   national: { ratio: number; description: string };
   ashdod: { ratio: number; description: string };
+  operational: { ratio: number; description: string };
 }
 
 const parkingRatios: Record<string, ParkingConfig> = {
@@ -24,6 +25,7 @@ const parkingRatios: Record<string, ParkingConfig> = {
     inputLabel: "מספר יחידות דיור",
     national: { ratio: 1, description: "1 חניה לכל יח\"ד" },
     ashdod: { ratio: 1.2, description: "1.2 חניות לכל יח\"ד" },
+    operational: { ratio: 0.05, description: "1 לכל 20 יח\"ד" },
   },
   residential_large: {
     label: "מגורים – דירה מעל 100 מ\"ר",
@@ -31,6 +33,7 @@ const parkingRatios: Record<string, ParkingConfig> = {
     inputLabel: "מספר יחידות דיור",
     national: { ratio: 1.5, description: "1.5 חניות לכל יח\"ד" },
     ashdod: { ratio: 1.75, description: "1.75 חניות לכל יח\"ד" },
+    operational: { ratio: 0.05, description: "1 לכל 20 יח\"ד" },
   },
   office: {
     label: "משרדים",
@@ -38,6 +41,7 @@ const parkingRatios: Record<string, ParkingConfig> = {
     inputLabel: "שטח עיקרי במ\"ר",
     national: { ratio: 1 / 25, description: "1 חניה לכל 25 מ\"ר" },
     ashdod: { ratio: 1 / 22, description: "1 חניה לכל 22 מ\"ר" },
+    operational: { ratio: 1 / 500, description: "1 לכל 500 מ\"ר" },
   },
   commercial: {
     label: "מסחר",
@@ -45,6 +49,7 @@ const parkingRatios: Record<string, ParkingConfig> = {
     inputLabel: "שטח מסחרי עיקרי במ\"ר",
     national: { ratio: 1 / 25, description: "1 חניה לכל 25 מ\"ר" },
     ashdod: { ratio: 1 / 20, description: "1 חניה לכל 20 מ\"ר" },
+    operational: { ratio: 1 / 200, description: "1 לכל 200 מ\"ר" },
   },
   hotel: {
     label: "מלון / אכסניה",
@@ -52,6 +57,7 @@ const parkingRatios: Record<string, ParkingConfig> = {
     inputLabel: "מספר חדרי אירוח",
     national: { ratio: 1 / 3, description: "1 חניה לכל 3 חדרים" },
     ashdod: { ratio: 1 / 2.5, description: "1 חניה לכל 2.5 חדרים" },
+    operational: { ratio: 1 / 30, description: "1 לכל 30 חדרים" },
   },
   education: {
     label: "מוסד חינוך",
@@ -59,6 +65,7 @@ const parkingRatios: Record<string, ParkingConfig> = {
     inputLabel: "מספר כיתות",
     national: { ratio: 2, description: "2 חניות לכל כיתה" },
     ashdod: { ratio: 2.5, description: "2.5 חניות לכל כיתה" },
+    operational: { ratio: 0.5, description: "1 לכל 2 כיתות" },
   },
   industry: {
     label: "תעשייה / מלאכה",
@@ -66,6 +73,7 @@ const parkingRatios: Record<string, ParkingConfig> = {
     inputLabel: "שטח עיקרי במ\"ר",
     national: { ratio: 1 / 50, description: "1 חניה לכל 50 מ\"ר" },
     ashdod: { ratio: 1 / 40, description: "1 חניה לכל 40 מ\"ר" },
+    operational: { ratio: 1 / 300, description: "1 לכל 300 מ\"ר" },
   },
   clinic: {
     label: "מרפאה / מכון רפואי",
@@ -73,6 +81,7 @@ const parkingRatios: Record<string, ParkingConfig> = {
     inputLabel: "שטח עיקרי במ\"ר",
     national: { ratio: 1 / 15, description: "1 חניה לכל 15 מ\"ר" },
     ashdod: { ratio: 1 / 15, description: "1 חניה לכל 15 מ\"ר" },
+    operational: { ratio: 1 / 250, description: "1 לכל 250 מ\"ר" },
   },
 };
 
@@ -109,11 +118,13 @@ const ParkingCalculator = () => {
       const numUnits = parseFloat(entry.units) || 0;
       const activeStd = config[standard];
       const parking = Math.ceil(numUnits * activeStd.ratio);
-      return { ...entry, config, numUnits, activeStd, parking };
+      const operational = Math.ceil(numUnits * config.operational.ratio);
+      return { ...entry, config, numUnits, activeStd, parking, operational };
     });
   }, [entries, standard]);
 
   const totalParking = results.reduce((sum, r) => sum + r.parking, 0);
+  const totalOperational = results.reduce((sum, r) => sum + r.operational, 0);
   const hasInput = results.some((r) => r.numUnits > 0);
   const disabledParking = Math.max(totalParking > 0 ? 1 : 0, Math.ceil(totalParking * 0.05));
   const evCharging = Math.ceil(totalParking * 0.2);
@@ -194,7 +205,7 @@ const ParkingCalculator = () => {
         <div className="space-y-6">
           <SectionCard title="פירוט לפי סוג שימוש" className="border border-border">
             <div className="space-y-3">
-              {results.map((r, idx) => {
+              {results.map((r) => {
                 if (r.numUnits <= 0) return null;
                 return (
                   <div key={r.id} className="flex items-center justify-between p-3 bg-secondary rounded-lg">
@@ -204,26 +215,47 @@ const ParkingCalculator = () => {
                         {r.numUnits} {r.config.unit} × {r.activeStd.ratio.toFixed(4)} = {(r.numUnits * r.activeStd.ratio).toFixed(1)} → <strong>{r.parking} חניות</strong>
                       </p>
                       <p className="text-xs text-muted-foreground">{r.activeStd.description}</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        🚛 רכב תפעולי: {r.config.operational.description} → <strong>{r.operational} מקומות</strong>
+                      </p>
                     </div>
-                    <div className="text-2xl font-bold text-primary">{r.parking}</div>
+                    <div className="text-left">
+                      <div className="text-2xl font-bold text-primary">{r.parking}</div>
+                      <div className="text-xs text-muted-foreground">+ {r.operational} תפעולי</div>
+                    </div>
                   </div>
                 );
               })}
             </div>
 
-            {/* Total line */}
-            <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
-              <span className="text-base font-bold">סה״כ חניות (כל השימושים)</span>
-              <span className="text-3xl font-bold text-primary">{totalParking}</span>
+            {/* Total lines */}
+            <div className="mt-4 pt-4 border-t border-border space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-base font-bold">סה״כ חניות רגילות</span>
+                <span className="text-3xl font-bold text-primary">{totalParking}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-semibold text-muted-foreground">סה״כ רכב תפעולי</span>
+                <span className="text-xl font-bold text-accent-foreground">{totalOperational}</span>
+              </div>
+              <div className="flex items-center justify-between pt-2 border-t border-border">
+                <span className="text-base font-bold">סה״כ כולל (חניות + תפעולי)</span>
+                <span className="text-3xl font-bold text-primary">{totalParking + totalOperational}</span>
+              </div>
             </div>
           </SectionCard>
 
           {/* Summary cards */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-secondary rounded-xl p-5 text-center">
               <Car className="h-6 w-6 mx-auto mb-2 text-primary" />
               <div className="text-3xl font-bold text-primary">{totalParking}</div>
               <div className="text-sm text-muted-foreground mt-1">חניות נדרשות</div>
+            </div>
+            <div className="bg-secondary rounded-xl p-5 text-center">
+              <Truck className="h-6 w-6 mx-auto mb-2 text-accent-foreground" />
+              <div className="text-3xl font-bold text-accent-foreground">{totalOperational}</div>
+              <div className="text-sm text-muted-foreground mt-1">רכב תפעולי</div>
             </div>
             <div className="bg-secondary rounded-xl p-5 text-center">
               <Accessibility className="h-6 w-6 mx-auto mb-2 text-chapter-supervision" />
@@ -246,6 +278,7 @@ const ParkingCalculator = () => {
             <div className="text-sm text-muted-foreground space-y-1 mr-7">
               <p><strong>חניות נכים:</strong> 5% מסה״כ, מינימום 1 (חוק שוויון זכויות)</p>
               <p><strong>עמדות טעינה:</strong> 20% מסה״כ (הנחיית משרד התחבורה)</p>
+              <p><strong>רכב תפעולי:</strong> מחושב לפי ייעוד – משאיות, רכבי שירות, הובלה וכו׳</p>
               <p><strong>שימוש מעורב:</strong> כל ייעוד מחושב בנפרד לפי המקדם שלו, ואז מסוכם לסה״כ אחד</p>
             </div>
           </div>
@@ -261,7 +294,8 @@ const ParkingCalculator = () => {
               <tr className="border-b border-border">
                 <th className="text-right py-2 pr-2 font-bold">ייעוד</th>
                 <th className="text-right py-2 font-bold">יחידת מדידה</th>
-                <th className="text-right py-2 font-bold">מקדם</th>
+                <th className="text-right py-2 font-bold">מקדם חניה</th>
+                <th className="text-right py-2 font-bold">רכב תפעולי</th>
               </tr>
             </thead>
             <tbody>
@@ -272,6 +306,7 @@ const ParkingCalculator = () => {
                     <td className="py-2 pr-2">{val.label}</td>
                     <td className="py-2">{val.unit}</td>
                     <td className="py-2">{val[standard].description}</td>
+                    <td className="py-2">{val.operational.description}</td>
                   </tr>
                 );
               })}
