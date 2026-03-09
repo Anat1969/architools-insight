@@ -9,6 +9,7 @@ import FeeCalculator from "@/components/dashboard/FeeCalculator";
 import WasteCalculator from "@/components/dashboard/WasteCalculator";
 import DrainageCalculator from "@/components/dashboard/DrainageCalculator";
 import GreenAreaCalculator from "@/components/dashboard/GreenAreaCalculator";
+import WaterCalculator from "@/components/dashboard/WaterCalculator";
 import PhoneBook from "@/components/dashboard/PhoneBook";
 import {
   chapters,
@@ -21,7 +22,7 @@ import {
   drainageGraphicContent, plantingGuidelines,
   environmentRequirements,
 } from "@/data/permitData";
-import { Info, AlertTriangle, FileText, HardHat, Car, Droplets, TreePine, Zap, Trash2, Waves, Leaf, BookUser, Calculator } from "lucide-react";
+import { Info, AlertTriangle, FileText, HardHat, Car, Droplets, TreePine, Zap, Trash2, Waves, Leaf, BookUser, Calculator, Droplet } from "lucide-react";
 
 const iconMap: Record<string, any> = {
   FileText, HardHat, Car, Droplets, TreePine, Zap, Trash2, Waves, Leaf,
@@ -291,6 +292,7 @@ const toolComponents: Record<string, React.FC> = {
   "waste-calc": WasteCalculator,
   "drainage-calc": DrainageCalculator,
   "green-calc": GreenAreaCalculator,
+  "water-calc": WaterCalculator,
 };
 
 // ---------- Home / Overview ----------
@@ -345,6 +347,7 @@ const Index = () => {
     "waste-calc": Calculator,
     "drainage-calc": Calculator,
     "green-calc": TreePine,
+    "water-calc": Droplets,
   };
   const toolLabels: Record<string, string> = {
     "phone-book": "ספר טלפונים",
@@ -353,6 +356,7 @@ const Index = () => {
     "waste-calc": "מחשבון אשפה",
     "drainage-calc": "מחשבון ניקוז",
     "green-calc": "מחשבון שטח ירוק",
+    "water-calc": "מחשבון מים",
   };
   const ToolIcon = isToolSection ? toolIcons[activeSection] : null;
 
