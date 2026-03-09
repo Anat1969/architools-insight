@@ -146,6 +146,7 @@ const DrainageSection = () => (
         <li>• בבקשות עם חובת בקרה מכון – הנספח יתואם עם אגף הניקוז טרם העברה לבקרה</li>
       </ul>
     </SectionCard>
+    <DrainageCalculator />
   </div>
 );
 
