@@ -146,6 +146,7 @@ const DrainageSection = () => (
         <li>• בבקשות עם חובת בקרה מכון – הנספח יתואם עם אגף הניקוז טרם העברה לבקרה</li>
       </ul>
     </SectionCard>
+    <DrainageCalculator />
   </div>
 );
 
@@ -178,6 +179,7 @@ const PlantingSection = () => (
         ))}
       </div>
     </SectionCard>
+    <GreenAreaCalculator />
   </div>
 );
 
@@ -230,6 +232,7 @@ const WaterSection = () => (
       "חתך קווי ביוב בחצר הבניין",
       "חישוב הידראולי של מהנדס אינסטלציה",
     ]} variant="number" />
+    <WaterCalculator />
   </div>
 );
 
