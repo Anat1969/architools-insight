@@ -290,6 +290,7 @@ const toolComponents: Record<string, React.FC> = {
   "fee-calc": FeeCalculator,
   "waste-calc": WasteCalculator,
   "drainage-calc": DrainageCalculator,
+  "green-calc": GreenAreaCalculator,
 };
 
 // ---------- Home / Overview ----------
