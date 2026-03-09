@@ -8,6 +8,7 @@ import ParkingCalculator from "@/components/dashboard/ParkingCalculator";
 import FeeCalculator from "@/components/dashboard/FeeCalculator";
 import WasteCalculator from "@/components/dashboard/WasteCalculator";
 import DrainageCalculator from "@/components/dashboard/DrainageCalculator";
+import GreenAreaCalculator from "@/components/dashboard/GreenAreaCalculator";
 import PhoneBook from "@/components/dashboard/PhoneBook";
 import {
   chapters,
