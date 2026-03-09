@@ -347,6 +347,7 @@ const Index = () => {
     "waste-calc": Calculator,
     "drainage-calc": Calculator,
     "green-calc": TreePine,
+    "water-calc": Droplets,
   };
   const toolLabels: Record<string, string> = {
     "phone-book": "ספר טלפונים",
