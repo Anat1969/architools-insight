@@ -7,6 +7,7 @@ import ProcessTimeline from "@/components/dashboard/ProcessTimeline";
 import ParkingCalculator from "@/components/dashboard/ParkingCalculator";
 import FeeCalculator from "@/components/dashboard/FeeCalculator";
 import WasteCalculator from "@/components/dashboard/WasteCalculator";
+import DrainageCalculator from "@/components/dashboard/DrainageCalculator";
 import PhoneBook from "@/components/dashboard/PhoneBook";
 import {
   chapters,
@@ -287,6 +288,7 @@ const toolComponents: Record<string, React.FC> = {
   "parking-calc": ParkingCalculator,
   "fee-calc": FeeCalculator,
   "waste-calc": WasteCalculator,
+  "drainage-calc": DrainageCalculator,
 };
 
 // ---------- Home / Overview ----------
@@ -339,12 +341,14 @@ const Index = () => {
     "parking-calc": Calculator,
     "fee-calc": Calculator,
     "waste-calc": Calculator,
+    "drainage-calc": Calculator,
   };
   const toolLabels: Record<string, string> = {
     "phone-book": "ספר טלפונים",
     "parking-calc": "מחשבון חניה",
     "fee-calc": "מחשבון אגרות",
     "waste-calc": "מחשבון אשפה",
+    "drainage-calc": "מחשבון ניקוז",
   };
   const ToolIcon = isToolSection ? toolIcons[activeSection] : null;
 
