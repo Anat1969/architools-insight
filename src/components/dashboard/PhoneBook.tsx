@@ -45,7 +45,7 @@ const PhoneBook = () => {
         <Input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="חיפוש לפי שם, תפקיד או מחלקה..."
+          placeholder="חיפוש לפי שם, תפקיד, אגף או מחלקה..."
           className="pr-10 text-right"
           dir="rtl"
         />
