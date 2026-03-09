@@ -47,7 +47,10 @@ const DashboardNav = ({ activeSection, onNavigate }: DashboardNavProps) => {
           mobileOpen ? "translate-x-0" : "translate-x-full lg:translate-x-0"
         } lg:sticky lg:top-0 flex flex-col`}
       >
-        <div className="p-5 border-b border-sidebar-border">
+        <button
+          onClick={() => handleClick("home")}
+          className="p-5 border-b border-sidebar-border w-full text-right hover:bg-sidebar-accent/30 transition-colors"
+        >
           <div className="flex items-center gap-2.5">
             <Building2 className="h-7 w-7 text-sidebar-primary" />
             <div>
@@ -55,7 +58,7 @@ const DashboardNav = ({ activeSection, onNavigate }: DashboardNavProps) => {
               <p className="text-xs text-sidebar-foreground/60">מידע להיתר – עיריית אשדוד</p>
             </div>
           </div>
-        </div>
+        </button>
 
         <nav className="flex-1 overflow-y-auto py-3 px-2">
           <div className="text-[10px] uppercase tracking-wider text-sidebar-foreground/40 font-semibold px-3 mb-2">
