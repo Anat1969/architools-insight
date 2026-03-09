@@ -22,7 +22,7 @@ import {
   drainageGraphicContent, plantingGuidelines,
   environmentRequirements,
 } from "@/data/permitData";
-import { Info, AlertTriangle, FileText, HardHat, Car, Droplets, TreePine, Zap, Trash2, Waves, Leaf, BookUser, Calculator } from "lucide-react";
+import { Info, AlertTriangle, FileText, HardHat, Car, Droplets, TreePine, Zap, Trash2, Waves, Leaf, BookUser, Calculator, Droplet } from "lucide-react";
 
 const iconMap: Record<string, any> = {
   FileText, HardHat, Car, Droplets, TreePine, Zap, Trash2, Waves, Leaf,
