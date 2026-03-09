@@ -9,6 +9,7 @@ import FeeCalculator from "@/components/dashboard/FeeCalculator";
 import WasteCalculator from "@/components/dashboard/WasteCalculator";
 import DrainageCalculator from "@/components/dashboard/DrainageCalculator";
 import GreenAreaCalculator from "@/components/dashboard/GreenAreaCalculator";
+import WaterCalculator from "@/components/dashboard/WaterCalculator";
 import PhoneBook from "@/components/dashboard/PhoneBook";
 import {
   chapters,
