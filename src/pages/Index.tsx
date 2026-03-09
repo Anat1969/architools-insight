@@ -288,6 +288,7 @@ const toolComponents: Record<string, React.FC> = {
   "parking-calc": ParkingCalculator,
   "fee-calc": FeeCalculator,
   "waste-calc": WasteCalculator,
+  "drainage-calc": DrainageCalculator,
 };
 
 // ---------- Home / Overview ----------
