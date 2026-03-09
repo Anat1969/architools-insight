@@ -232,6 +232,7 @@ const WaterSection = () => (
       "חתך קווי ביוב בחצר הבניין",
       "חישוב הידראולי של מהנדס אינסטלציה",
     ]} variant="number" />
+    <WaterCalculator />
   </div>
 );
 
