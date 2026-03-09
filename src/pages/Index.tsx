@@ -179,6 +179,7 @@ const PlantingSection = () => (
         ))}
       </div>
     </SectionCard>
+    <GreenAreaCalculator />
   </div>
 );
 
