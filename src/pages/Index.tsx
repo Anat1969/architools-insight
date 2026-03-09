@@ -352,6 +352,7 @@ const Index = () => {
     "fee-calc": "מחשבון אגרות",
     "waste-calc": "מחשבון אשפה",
     "drainage-calc": "מחשבון ניקוז",
+    "green-calc": "מחשבון שטח ירוק",
   };
   const ToolIcon = isToolSection ? toolIcons[activeSection] : null;
 
