@@ -17,18 +17,19 @@ const allContacts: (ContactPerson & { department: string })[] = [
   ...sanitationContacts.map(c => ({ ...c, department: "תברואה ואשפה" })),
   ...waterContacts.map(c => ({ ...c, department: "תאגיד המים יובלים" })),
   ...environmentContacts.map(c => ({ ...c, department: "איכות הסביבה" })),
-];
+].sort((a, b) => a.name.localeCompare(b.name, 'he'));
 
 const PhoneBook = () => {
   const [search, setSearch] = useState("");
 
   const filteredContacts = useMemo(() => {
-    if (!search.trim()) return allContacts;
-    const term = search.toLowerCase();
-    return allContacts.filter(
-      c => c.name.toLowerCase().includes(term) ||
-           c.role.toLowerCase().includes(term) ||
-           c.department.toLowerCase().includes(term)
+    const sorted = [...allContacts];
+    if (!search.trim()) return sorted;
+    const term = search.trim();
+    return sorted.filter(
+      c => c.name.includes(term) ||
+           c.role.includes(term) ||
+           c.department.includes(term)
     );
   }, [search]);
 
