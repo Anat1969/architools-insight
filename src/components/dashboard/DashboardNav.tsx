@@ -12,6 +12,7 @@ const tools = [
   { id: "fee-calc", label: "מחשבון אגרות", icon: Calculator },
   { id: "waste-calc", label: "מחשבון אשפה", icon: Calculator },
   { id: "drainage-calc", label: "מחשבון ניקוז", icon: Calculator },
+  { id: "green-calc", label: "מחשבון שטח ירוק", icon: TreePine },
 ];
 
 interface DashboardNavProps {

@@ -8,6 +8,7 @@ import ParkingCalculator from "@/components/dashboard/ParkingCalculator";
 import FeeCalculator from "@/components/dashboard/FeeCalculator";
 import WasteCalculator from "@/components/dashboard/WasteCalculator";
 import DrainageCalculator from "@/components/dashboard/DrainageCalculator";
+import GreenAreaCalculator from "@/components/dashboard/GreenAreaCalculator";
 import PhoneBook from "@/components/dashboard/PhoneBook";
 import {
   chapters,
@@ -289,6 +290,7 @@ const toolComponents: Record<string, React.FC> = {
   "fee-calc": FeeCalculator,
   "waste-calc": WasteCalculator,
   "drainage-calc": DrainageCalculator,
+  "green-calc": GreenAreaCalculator,
 };
 
 // ---------- Home / Overview ----------
@@ -342,6 +344,7 @@ const Index = () => {
     "fee-calc": Calculator,
     "waste-calc": Calculator,
     "drainage-calc": Calculator,
+    "green-calc": TreePine,
   };
   const toolLabels: Record<string, string> = {
     "phone-book": "ספר טלפונים",
@@ -349,6 +352,7 @@ const Index = () => {
     "fee-calc": "מחשבון אגרות",
     "waste-calc": "מחשבון אשפה",
     "drainage-calc": "מחשבון ניקוז",
+    "green-calc": "מחשבון שטח ירוק",
   };
   const ToolIcon = isToolSection ? toolIcons[activeSection] : null;
 
