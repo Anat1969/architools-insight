@@ -84,25 +84,21 @@ const DashboardNav = ({ activeSection, onNavigate }: DashboardNavProps) => {
           <div className="text-[10px] uppercase tracking-wider text-sidebar-foreground/40 font-semibold px-3 mb-2">
             כלים
           </div>
-          {["parking-calc", "fee-calc", "waste-calc"].map((tool) => {
-            const labels: Record<string, string> = {
-              "parking-calc": "מחשבון חניה",
-              "fee-calc": "מחשבון אגרות",
-              "waste-calc": "מחשבון אשפה",
-            };
-            const isActive = activeSection === tool;
+          {tools.map((tool) => {
+            const Icon = tool.icon;
+            const isActive = activeSection === tool.id;
             return (
               <button
-                key={tool}
-                onClick={() => handleClick(tool)}
+                key={tool.id}
+                onClick={() => handleClick(tool.id)}
                 className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md text-sm transition-colors mb-0.5 ${
                   isActive
                     ? "bg-sidebar-primary/20 text-sidebar-primary font-semibold"
                     : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
                 }`}
               >
-                <span className="text-base">📐</span>
-                <span className="truncate">{labels[tool]}</span>
+                <Icon className="h-4 w-4 shrink-0" />
+                <span className="truncate">{tool.label}</span>
               </button>
             );
           })}
