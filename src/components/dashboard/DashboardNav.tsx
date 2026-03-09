@@ -1,10 +1,17 @@
 import { useState } from "react";
-import { FileText, HardHat, Car, Droplets, TreePine, Zap, Trash2, Waves, Leaf, Menu, X, Building2 } from "lucide-react";
+import { FileText, HardHat, Car, Droplets, TreePine, Zap, Trash2, Waves, Leaf, Menu, X, Building2, BookUser, Calculator } from "lucide-react";
 import { chapters } from "@/data/permitData";
 
 const iconMap: Record<string, any> = {
   FileText, HardHat, Car, Droplets, TreePine, Zap, Trash2, Waves, Leaf,
 };
+
+const tools = [
+  { id: "phone-book", label: "ספר טלפונים", icon: BookUser },
+  { id: "parking-calc", label: "מחשבון חניה", icon: Calculator },
+  { id: "fee-calc", label: "מחשבון אגרות", icon: Calculator },
+  { id: "waste-calc", label: "מחשבון אשפה", icon: Calculator },
+];
 
 interface DashboardNavProps {
   activeSection: string;
@@ -40,7 +47,10 @@ const DashboardNav = ({ activeSection, onNavigate }: DashboardNavProps) => {
           mobileOpen ? "translate-x-0" : "translate-x-full lg:translate-x-0"
         } lg:sticky lg:top-0 flex flex-col`}
       >
-        <div className="p-5 border-b border-sidebar-border">
+        <button
+          onClick={() => handleClick("home")}
+          className="p-5 border-b border-sidebar-border w-full text-right hover:bg-sidebar-accent/30 transition-colors"
+        >
           <div className="flex items-center gap-2.5">
             <Building2 className="h-7 w-7 text-sidebar-primary" />
             <div>
@@ -48,7 +58,7 @@ const DashboardNav = ({ activeSection, onNavigate }: DashboardNavProps) => {
               <p className="text-xs text-sidebar-foreground/60">מידע להיתר – עיריית אשדוד</p>
             </div>
           </div>
-        </div>
+        </button>
 
         <nav className="flex-1 overflow-y-auto py-3 px-2">
           <div className="text-[10px] uppercase tracking-wider text-sidebar-foreground/40 font-semibold px-3 mb-2">
@@ -77,25 +87,21 @@ const DashboardNav = ({ activeSection, onNavigate }: DashboardNavProps) => {
           <div className="text-[10px] uppercase tracking-wider text-sidebar-foreground/40 font-semibold px-3 mb-2">
             כלים
           </div>
-          {["parking-calc", "fee-calc", "waste-calc"].map((tool) => {
-            const labels: Record<string, string> = {
-              "parking-calc": "מחשבון חניה",
-              "fee-calc": "מחשבון אגרות",
-              "waste-calc": "מחשבון אשפה",
-            };
-            const isActive = activeSection === tool;
+          {tools.map((tool) => {
+            const Icon = tool.icon;
+            const isActive = activeSection === tool.id;
             return (
               <button
-                key={tool}
-                onClick={() => handleClick(tool)}
+                key={tool.id}
+                onClick={() => handleClick(tool.id)}
                 className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md text-sm transition-colors mb-0.5 ${
                   isActive
                     ? "bg-sidebar-primary/20 text-sidebar-primary font-semibold"
                     : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
                 }`}
               >
-                <span className="text-base">📐</span>
-                <span className="truncate">{labels[tool]}</span>
+                <Icon className="h-4 w-4 shrink-0" />
+                <span className="truncate">{tool.label}</span>
               </button>
             );
           })}
