@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import DashboardNav from "@/components/dashboard/DashboardNav";
+import AIMenu from "@/components/AIMenu";
 import ContactTable from "@/components/dashboard/ContactTable";
 import RequirementsList from "@/components/dashboard/RequirementsList";
 import SectionCard from "@/components/dashboard/SectionCard";
@@ -378,9 +379,12 @@ const Index = () => {
                 <p className="text-xs text-muted-foreground">עיריית אשדוד – אוגדן מידע לעורכי בקשה</p>
               </div>
             </div>
-            <div className="hidden sm:flex items-center gap-2 bg-accent/10 text-accent-foreground px-3 py-1.5 rounded-full text-xs font-medium">
-              <Info className="h-3.5 w-3.5" />
-              עדכון: ינואר 2025
+            <div className="flex items-center gap-3">
+              <div className="hidden sm:flex items-center gap-2 bg-accent/10 text-accent-foreground px-3 py-1.5 rounded-full text-xs font-medium">
+                <Info className="h-3.5 w-3.5" />
+                עדכון: ינואר 2025
+              </div>
+              <AIMenu />
             </div>
           </div>
         </header>
